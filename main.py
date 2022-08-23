@@ -15,7 +15,7 @@ city = os.environ['CITY']
 gaokao = os.environ['GAOKAO']
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
-user_id = os.environ["USER_ID"]
+user_ids = os.environ["USER_ID"].split("\n")
 #user_ids = [os.environ["USER_ID_1"], os.environ["USER_ID_2"]]
 template_id = os.environ["TEMPLATE_ID"]
 
@@ -60,6 +60,10 @@ en, zh = One_English()
 client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
 data = {"date":{"value":todays, "color":get_random_color()}, "city":{"value":city}, "weather":{"value": weather_data['weather']},"min_temperature":{"value":weather_data['lowest'],"color":"#7FBA00"},"max_temperature":{"value":weather_data['highest'], "color":"#F25022"}, "pop":{"value":weather_data['pop']+'%'},"tips":{"value":weather_data['tips'], "color":get_random_color()},"birthday":{"value":get_gaokao(),"color":"#FF0000"},"note":{"value":get_words(), "color":get_random_color()},"note_en":{"value":en, "color":get_random_color()},"note_th":{"value":zh, "color":get_random_color()}}
-res = wm.send_template(user_id, template_id, data)
-print(res)
 
+count = 0
+for user_id in user_ids:
+  res = wm.send_template(user_id, template_id, data)
+  count+=1
+
+print("发送了" + str(count) + "条消息")
