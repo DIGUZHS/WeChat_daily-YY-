@@ -7,7 +7,7 @@ import random
 
 
 today = datetime.now()
-todays = today.strftime('%Y-%m-%d %A') 
+#todays = today.strftime('%Y-%m-%d %A') 
 
 
 city = os.environ['CITY']
@@ -34,6 +34,12 @@ def get_weather():
     weather_res = requests.get(weather_api)
     weather_data = weather_res.json()['newslist'][0]
     return weather_data
+#日期
+
+def now_day():
+  date_now = weather_data['date']
+  week_now = weather_data['week']
+  return date_now + ' ' +week_now
 
 
 def get_gaokao():
@@ -53,7 +59,7 @@ en, zh = One_English()
 
 client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
-data = {"date":{"value":todays, "color":get_random_color()}, "city":{"value":city}, "weather":{"value": weather_data['weather']},"min_temperature":{"value":weather_data['lowest'],"color":"#7FBA00"},"max_temperature":{"value":weather_data['highest'], "color":"#F25022"}, "pop":{"value":weather_data['pop']+'%'},"tips":{"value":weather_data['tips'], "color":get_random_color()},"birthday":{"value":get_gaokao(),"color":"#FF0000"},"note":{"value":get_words(), "color":get_random_color()},"note_en":{"value":en, "color":get_random_color()},"note_th":{"value":zh, "color":get_random_color()}}
+data = {"date":{"value":now_day(), "color":get_random_color()}, "city":{"value":city}, "weather":{"value": weather_data['weather']},"min_temperature":{"value":weather_data['lowest'],"color":"#7FBA00"},"max_temperature":{"value":weather_data['highest'], "color":"#F25022"}, "pop":{"value":weather_data['pop']+'%'},"tips":{"value":weather_data['tips'], "color":get_random_color()},"birthday":{"value":get_gaokao(),"color":"#FF0000"},"note":{"value":get_words(), "color":get_random_color()},"note_en":{"value":en, "color":get_random_color()},"note_th":{"value":zh, "color":get_random_color()}}
 
 count = 0
 for user_id in user_ids:
