@@ -16,6 +16,7 @@ app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 user_ids = os.environ["USER_ID"].split("\n")
 template_id = os.environ["TEMPLATE_ID"]
+th_key = os.environ['TH_KEY']
 
 
 def get_random_color():
@@ -23,14 +24,14 @@ def get_random_color():
 
 #英语一句话
 def One_English():
-    English_api = 'http://api.tianapi.com/ensentence/index?key=a3837d06c106a70ac573d583e6569795'
+    English_api = 'http://api.tianapi.com/ensentence/index?key='+ th_key
     English_res = requests.get(English_api)
     English_data = English_res.json()['newslist'][0]
     return English_data['en'], English_data['zh']
 
 #天气
 def get_weather():
-    weather_api = 'http://api.tianapi.com/tianqi/index?key=a3837d06c106a70ac573d583e6569795&city='+ city
+    weather_api = 'http://api.tianapi.com/tianqi/index?key='+ th_key +'&city='+ city
     weather_res = requests.get(weather_api)
     weather_data = weather_res.json()['newslist'][0]
     return weather_data

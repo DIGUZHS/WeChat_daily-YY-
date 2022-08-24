@@ -29,4 +29,5 @@ jobs:
       USER_ID: ${{ secrets.USER_ID }}
       GAOKAO: ${{ secrets.GAOKAO }}
       CITY: ${{ secrets.CITY }}
+      TH_KEY: ${{ secrets.TH_KEY }}
       
